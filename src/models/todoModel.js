@@ -16,3 +16,15 @@ export const getTodosById = async (id) => {
     [id],
   );
 };
+
+export const createTodos = async (title, description) => {
+  const result = await db.run(
+    `  
+    INSERT INTO todos
+    (title,description)
+    VALUES(?, ?)
+    `,
+    [title, description],
+  );
+  return await getTodosById(result.lastID);
+};

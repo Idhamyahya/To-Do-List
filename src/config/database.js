@@ -13,7 +13,7 @@ const db = await open({
   driver: sqlite3.Database,
 });
 
-console.log("Database berhasil terhubung");
+// console.log("Database berhasil terhubung");
 
 await db.exec(`
   CREATE TABLE IF NOT EXISTS todos (
@@ -26,6 +26,6 @@ await db.exec(`
   )
 `);
 
-console.log("Table todos berhasil dibuat");
+// console.log("Table todos berhasil dibuat");
 
 export default db;
