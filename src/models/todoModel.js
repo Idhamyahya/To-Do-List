@@ -28,3 +28,18 @@ export const createTodos = async (title, description) => {
   );
   return await getTodosById(result.lastID);
 };
+
+export const updateTodos = async (id, title, description) => {
+  await db.run(
+    `
+    UPDATE todos
+    SET 
+      title = ?,
+      description = ?,
+      updated_at = CURRENT_TIMESTAMP
+    WHERE id = ?
+    `,
+    [title, description, id],
+  );
+  return await getTodosById(id);
+};

@@ -1,4 +1,9 @@
-import { createTodos, getAllTodos, getTodosById } from "../models/todoModel.js";
+import {
+  createTodos,
+  getAllTodos,
+  getTodosById,
+  updateTodos,
+} from "../models/todoModel.js";
 const mapTodo = (todo) => ({
   id: todo.id,
   title: todo.title,
@@ -45,5 +50,30 @@ export const createTodos_S = async (title, description) => {
     throw err;
   }
   const todo = await createTodos(title.trim(), description.trim());
+  return mapTodo(todo);
+};
+
+// update
+export const updateTodos_S = async (id, title, description) => {
+  if (typeof title !== "string" || !title.trim()) {
+    const err = new Error("title wajib diisi");
+    err.statusCode = 400;
+    throw err;
+  }
+  if (title.trim().length < 3) {
+    const err = new Error("Title minimal 3 karakter");
+    err.statusCode = 400;
+    throw err;
+  }
+  const existingTodo = await getTodosById(id);
+
+  if (!existingTodo) {
+    const err = new Error("Todo tidak ditemukan");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const todo = await updateTodos(id, title, description);
+
   return mapTodo(todo);
 };
