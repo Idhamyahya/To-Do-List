@@ -5,7 +5,7 @@ await db.run(
   INSERT INTO todos (title, description)
   VALUES (?, ?)
   `,
-  ["Belajar Node.js", "Belajar dasar Node.js"],
+  ["Makan", "Basooooooo"],
 );
 
 console.log("Data berhasil ditambahkan");

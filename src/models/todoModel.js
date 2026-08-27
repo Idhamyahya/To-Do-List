@@ -6,3 +6,13 @@ export const getAllTodos = async () => {
         ORDER BY id DESC
         `);
 };
+
+export const getTodosById = async (id) => {
+  return db.get(
+    `   SELECT *
+        FROM todos
+        WHERE id = ?
+    `,
+    [id],
+  );
+};
