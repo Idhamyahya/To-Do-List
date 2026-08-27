@@ -1,4 +1,8 @@
-import { getTodos_S, getTodosById_S } from "../services/todoService.js";
+import {
+  createTodos_S,
+  getTodos_S,
+  getTodosById_S,
+} from "../services/todoService.js";
 
 export const getAllTodos_C = async (req, res, next) => {
   try {
@@ -21,5 +25,18 @@ export const getTodosByid_C = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const createTodos_C = async (req, res, next) => {
+  try {
+    const { title, description } = req.body;
+    const todo = await createTodos_S(title, description);
+    res.status(200).json({
+      succes: true,
+      data: todo,
+    });
+  } catch (err) {
+    next(err);
   }
 };
