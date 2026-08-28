@@ -43,3 +43,15 @@ export const updateTodos = async (id, title, description) => {
   );
   return await getTodosById(id);
 };
+
+export const deletTodo = async (id) => {
+  const result = await db.run(
+    `
+  DELETE FROM todos
+  WHERE id = ?
+  `,
+    [id],
+  );
+
+  return result.changes;
+};

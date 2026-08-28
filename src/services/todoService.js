@@ -1,5 +1,6 @@
 import {
   createTodos,
+  deletTodo,
   getAllTodos,
   getTodosById,
   updateTodos,
@@ -65,8 +66,8 @@ export const updateTodos_S = async (id, title, description) => {
     err.statusCode = 400;
     throw err;
   }
-  const existingTodo = await getTodosById(id);
 
+  const existingTodo = await getTodosById(id);
   if (!existingTodo) {
     const err = new Error("Todo tidak ditemukan");
     err.statusCode = 400;
@@ -76,4 +77,18 @@ export const updateTodos_S = async (id, title, description) => {
   const todo = await updateTodos(id, title, description);
 
   return mapTodo(todo);
+};
+
+export const deleteTodos_S = async (id) => {
+  const todo = await getTodosById(id);
+  if (!todo) {
+    const err = new Error("Todo tidak ditemukan");
+
+    err.statusCode = 400;
+
+    throw err;
+  }
+  await deletTodo(id);
+
+  return true;
 };

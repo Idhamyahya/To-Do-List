@@ -1,6 +1,6 @@
-import { getTodosById, updateTodos } from "../models/todoModel.js";
 import {
   createTodos_S,
+  deleteTodos_S,
   getTodos_S,
   getTodosById_S,
   updateTodos_S,
@@ -9,8 +9,10 @@ import {
 export const getAllTodos_C = async (req, res, next) => {
   try {
     const todos = await getTodos_S();
+    // console.log("GET ALL CONTROLLER DIPANGGIL");
+
     res.status(200).json({
-      message: true,
+      succes: true,
       data: todos,
     });
   } catch (err) {
@@ -53,6 +55,16 @@ export const updateTodos_C = async (req, res, next) => {
       succes: true,
       data: todo,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// delete
+export const deleteTodos_C = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    await deleteTodos_S(id);
   } catch (err) {
     next(err);
   }
